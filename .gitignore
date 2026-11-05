@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+*.local
+*.log
+portal-source.json
+portal-metadata.json
+salt-check.json
+coverage/

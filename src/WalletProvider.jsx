@@ -1,0 +1,3 @@
+import React from 'react';import{PrivyProvider}from'@privy-io/react-auth';
+const rh={id:4663,name:'Robinhood Chain',nativeCurrency:{name:'Ether',symbol:'ETH',decimals:18},rpcUrls:{default:{http:['https://rpc.mainnet.chain.robinhood.com']}},blockExplorers:{default:{name:'Blockscout',url:'https://robinhoodchain.blockscout.com'}}};
+export function WalletProvider({children}){return <PrivyProvider appId="cmw3p2o7p01cf0gkxk0o20j5d" config={{defaultChain:rh,supportedChains:[rh],loginMethods:['wallet'],appearance:{theme:'dark',accentColor:'#CCFF00',logo:window.location.origin+'/logo.png',walletChainType:'ethereum-only',walletList:['metamask','okx_wallet','coinbase_wallet','rainbow','detected_ethereum_wallets','wallet_connect']}}}>{children}</PrivyProvider>}

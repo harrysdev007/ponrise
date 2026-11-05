@@ -1,0 +1,2 @@
+import{defineConfig,loadEnv}from'vite';import{handleUpload}from'./server/upload.mjs';
+export default defineConfig(({mode})=>{const env=loadEnv(mode,process.cwd(),'');return{plugins:[{name:'image-storage',configureServer(s){s.middlewares.use((req,res,next)=>{if(new URL(req.url,'http://localhost').pathname==='/api/upload')return handleUpload(req,res,env.PINATA_JWT);next()})}}],build:{rollupOptions:{onwarn(warn,defaultHandler){if(warn.code==='MODULE_LEVEL_DIRECTIVE'||warn.code==='INVALID_ANNOTATION')return;defaultHandler(warn)}}}}});

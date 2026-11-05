@@ -1,0 +1,6 @@
+import{test}from'node:test';import assert from'node:assert/strict';import{build}from'../scripts/build-rewards.mjs';import{keccak256,concat,AbiCoder}from'ethers';
+const input={chainId:4663,contract:'0x0000000000000000000000000000000000000001',epoch:0,allocations:[1,2,3].map(i=>({account:'0x'+i.toString().padStart(40,'0'),amountETH:'0.1'}))};
+test('odd-size reward tree verifies every wallet proof',()=>{const r=build(input);assert.equal(r.total,'300000000000000000');for(const p of r.proofs){let h=keccak256(AbiCoder.defaultAbiCoder().encode(['uint256','address','uint256','address','uint256'],[p.chainId,p.contract,p.epoch,p.account,p.amount]));for(const other of p.proof)h=keccak256(concat(h<other?[h,other]:[other,h]));assert.equal(h,r.root)}});
+test('duplicate and zero allocations rejected',()=>{assert.throws(()=>build({...input,allocations:[input.allocations[0],input.allocations[0]]}));assert.throws(()=>build({...input,allocations:[{...input.allocations[0],amountETH:'0'}]}));});
+
+test('six-decimal allocations preserve native asset units',()=>{const r=build({...input,decimals:6,allocations:[{account:input.allocations[0].account,amount:'1.5'}]});assert.equal(r.total,'1500000');assert.equal(r.proofs[0].amount,'1500000')});

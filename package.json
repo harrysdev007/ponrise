@@ -1,0 +1,24 @@
+{
+  "name": "ponrise",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "test": "node --test test/*.test.mjs",
+    "compile": "node scripts/compile.mjs"
+  },
+  "dependencies": {
+    "@privy-io/react-auth": "^3.51.2",
+    "ethers": "^6.15.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "ganache": "^7.9.2",
+    "solc": "^0.8.30",
+    "vite": "^6.0.0"
+  }
+}
